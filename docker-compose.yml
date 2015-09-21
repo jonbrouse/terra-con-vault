@@ -1,8 +1,9 @@
 consul:
-  image: progrium/consul
+  build: ./consul/
   hostname: consul
   ports:
+    - "8300:8300"
     - "8400:8400"
     - "8500:8500"
     - "8600:53"
-  command: -server -bootstrap
+  command: -server -bootstrap -data-dir /consul/data
