@@ -1,9 +1,11 @@
 consul:
-  build: ./consul/
+  build: consul/
   hostname: consul
   ports:
     - "8300:8300"
     - "8400:8400"
     - "8500:8500"
     - "8600:53"
-  command: -server -bootstrap -data-dir /consul/data
+  command: agent -server -bootstrap-expect 1 -config-dir /consul/conf.d
+  volumes:
+    - consul/assets/conf.d:/consul/conf.d
