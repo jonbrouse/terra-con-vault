@@ -1,0 +1,21 @@
+FROM alpine:3.2
+
+RUN apk --update add curl bash libcap ca-certificates
+
+ENV SHELL /bin/bash
+ENV VAULT_VERSION 0.2.0
+
+RUN bash -c 'mkdir -p /vault/conf.d'
+
+RUN curl -Lo /vault/vault_${VAULT_VERSION}_linux_amd64.zip https://dl.bintray.com/mitchellh/vault/vault_${VAULT_VERSION}_linux_amd64.zip && \
+    unzip /vault/vault_${VAULT_VERSION}_linux_amd64.zip -d /vault && \
+    rm -rf /vault/vault_${VAULT_VERSION}_linux_amd64.zip && \
+    chmod +x /vault/vault
+
+RUN setcap cap_ipc_lock=+ep /vault/vault
+
+EXPOSE 8200 
+
+ENTRYPOINT ["/vault/vault"]
+
+CMD []

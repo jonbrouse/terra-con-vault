@@ -2,7 +2,7 @@
 
 ## What is this repository?
 
-POC using Terraform, Consul and Vault
+POC using Terraform, Consul and Vault. This repo will allow you to spin up a Consul server with a UI. 
 
 # Getting Started
 

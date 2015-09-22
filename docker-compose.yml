@@ -9,3 +9,13 @@ consul:
   command: agent -server -bootstrap-expect 1 -config-dir /consul/conf.d
   volumes:
     - consul/assets/conf.d:/consul/conf.d
+vault:
+  build: vault/
+  hostname: vault
+  ports:
+    - "8200:8200"
+  command: server -config=/vault/conf.d/vault.hcl
+  links:
+    - consul:consul
+  volumes:
+    - vault/assets/conf.d:/vault/conf.d
