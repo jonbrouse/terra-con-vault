@@ -2,7 +2,7 @@ FROM debian:jessie
 #ENV SHELL /bin/bash
 
 
-ENV CONSUL_VERSION 0.5.2 
+ENV CONSUL_VERSION 0.5.2
 ENV UI_VERSION 0.5.2
 
 RUN apt-get update && \
@@ -17,9 +17,10 @@ RUN curl -Lo /consul/${CONSUL_VERSION}_linux_amd64.zip https://dl.bintray.com/mi
     unzip /consul/${CONSUL_VERSION}_linux_amd64.zip -d /consul  && \
     rm -rf /consul/${CONSUL_VERSION}_linux_amd64.zip && \
     chmod +x /consul/consul && \
-    curl -Lo /consul/ui/${UI_VERSION}_web_ui.zip https://dl.bintray.com/mitchellh/consul/${UI_VERSION}_web_ui.zip && \
-    unzip /consul/ui/${UI_VERSION}_web_ui.zip -d /consul/ui && \
-    rm -rf /consul/ui/${UI_VERSION}_web_ui.zip 
+    curl -Lo /tmp/${UI_VERSION}_web_ui.zip https://dl.bintray.com/mitchellh/consul/${UI_VERSION}_web_ui.zip && \
+    unzip /tmp/${UI_VERSION}_web_ui.zip -d /tmp && \
+    cp -r /tmp/dist/* /consul/ui && \
+    rm -rf /tmp/*
 
 EXPOSE 8300 8400 8500 8600
 
